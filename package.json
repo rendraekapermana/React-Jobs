@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-  "server": "json-server --watch src/jobs.json --port ${PORT:-8000}"
+    "start": "json-server --watch src/jobs.json --port 10000"
   },
   "dependencies": {
     "react": "^18.3.1",
