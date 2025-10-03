@@ -58,5 +58,8 @@ To get started with the project:
    ```bash
    npm start
    ```
+   ```bash
+   npm run dev
+   ```
 
 Open `http://localhost:3000` in your browser to view the application. 
