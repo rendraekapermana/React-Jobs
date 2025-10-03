@@ -83,6 +83,20 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
+    },
+    {
+      "id": "1b07",
+      "title": "Software Developer",
+      "type": "Full-Time",
+      "location": "Indonesia",
+      "description": "Can Develop Anything",
+      "salary": "Over $200K",
+      "company": {
+        "name": "Universitas Brawijaya",
+        "description": "IUBUB",
+        "contactEmail": "rendraekapermanaa@gmail.com",
+        "contactPhone": "085664544041"
+      }
     }
   ]
 }
