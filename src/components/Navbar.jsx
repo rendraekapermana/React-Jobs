@@ -1,11 +1,31 @@
-import { NavLink } from "react-router-dom";
-import logo from "../assets/Images/logo.png";
+// src/components/Navbar.jsx
+import { NavLink, useNavigate } from 'react-router-dom';
+import logo from '../assets/Images/logo.png';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { toast } from 'react-toastify';
 
-const navbar = () => {
+const Navbar = () => {
+  const { user, userProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const linkClass = ({ isActive }) =>
     isActive
-      ? "text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-      : "text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2";
+      ? 'text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+      : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2';
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success('Anda berhasil logout');
+      navigate('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('Gagal logout');
+    }
+  };
 
   return (
     <nav className="bg-indigo-700 border-b border-indigo-500">
@@ -26,9 +46,35 @@ const navbar = () => {
                 <NavLink to="/jobs" className={linkClass}>
                   Jobs
                 </NavLink>
-                <NavLink to="/add-job" className={linkClass}>
-                  Add Job
-                </NavLink>
+
+                {/* --- Link Khusus Recruiter --- */}
+                {user && userProfile?.role === 'recruiter' && (
+                  <NavLink to="/add-job" className={linkClass}>
+                    Add Job
+                  </NavLink>
+                )}
+
+                {/* --- Link Saat Logged Out --- */}
+                {!user && (
+                  <>
+                    <NavLink to="/login" className={linkClass}>
+                      Login
+                    </NavLink>
+                    <NavLink to="/register" className={linkClass}>
+                      Register
+                    </NavLink>
+                  </>
+                )}
+
+                {/* --- Tombol Saat Logged In --- */}
+                {user && (
+                  <button
+                    onClick={handleLogout}
+                    className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  >
+                    Logout
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -38,4 +84,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;

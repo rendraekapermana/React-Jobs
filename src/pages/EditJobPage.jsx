@@ -119,17 +119,15 @@ const EditJobPage = ({ updateJobSubmit }) => {
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
               >
-                <option value="Under $50K">Under $50K</option>
-                <option value="$50K - 60K">$50K - $60K</option>
-                <option value="$60K - 70K">$60K - $70K</option>
-                <option value="$70K - 80K">$70K - $80K</option>
-                <option value="$80K - 90K">$80K - $90K</option>
-                <option value="$90K - 100K">$90K - $100K</option>
-                <option value="$100K - 125K">$100K - $125K</option>
-                <option value="$125K - 150K">$125K - $150K</option>
-                <option value="$150K - 175K">$150K - $175K</option>
-                <option value="$175K - 200K">$175K - $200K</option>
-                <option value="Over $200K">Over $200K</option>
+                <option value="Rp. 5.000.000">Rp. 5.000.000</option>
+                <option value="Rp. 5.000.000 - 7.000.000">Rp. 5.000.000 - 7.000.000</option>
+                <option value="Rp. 7.000.000 - 10.000.000">Rp. 7.000.000 - 10.000.000</option>
+                <option value="Rp. 10.000.000 - 15.000.000">Rp. 10.000.000 - 15.000.000</option>
+                <option value="Rp. 15.000.000 - 20.000.000">Rp. 15.000.000 - 20.000.000</option>
+                <option value="Rp. 20.000.000 - 30.000.000">Rp. 20.000.000 - 30.000.000</option>
+                <option value="Rp. 30.000.000 - 40.000.000">Rp. 30.000.000 - 40.000.000</option>
+                <option value="Rp. 40.000.000 - 50.000.000">Rp. 40.000.000 - 50.000.000</option>
+                <option value="Over Rp. 50.000.000">Over Rp. 50.000.000</option>
               </select>
             </div>
 

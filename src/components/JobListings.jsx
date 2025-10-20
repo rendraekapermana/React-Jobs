@@ -1,8 +1,12 @@
+// src/components/JobListings.jsx
 /* eslint-disable react/prop-types */
 
-import { useState, useEffect } from "react";
-import JobListing from "./JobListing";
-import Spinner from "./Spinner";
+import { useState, useEffect } from 'react';
+import JobListing from './JobListing';
+import Spinner from './Spinner';
+// Impor fungsi-fungsi Firebase
+import { db } from '../firebase';
+import { collection, getDocs, query, limit } from 'firebase/firestore';
 
 const JobListings = ({ isHome = false }) => {
   const [jobs, setJobs] = useState([]);
@@ -10,22 +14,31 @@ const JobListings = ({ isHome = false }) => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const apiUrl = isHome
-        ? "/api/jobs?_limit=3"
-        : "/api/jobs";
       try {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setJobs(data);
+        const jobsCollection = collection(db, 'jobs');
+        
+        // Tentukan query: jika di homepage, limit 3; jika tidak, ambil semua
+        const q = isHome 
+          ? query(jobsCollection, limit(3)) 
+          : jobsCollection;
+
+        const querySnapshot = await getDocs(q);
+        
+        const jobsList = [];
+        querySnapshot.forEach((doc) => {
+          jobsList.push({ id: doc.id, ...doc.data() });
+        });
+        
+        setJobs(jobsList);
       } catch (error) {
-        console.log("Error fetching data", error);
+        console.log('Error fetching data', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchJobs();
-  });
+  }, [isHome]); // Tambahkan isHome sebagai dependency
 
   return (
     <section className="bg-blue-50 px-4 py-10">
@@ -34,7 +47,7 @@ const JobListings = ({ isHome = false }) => {
           className="text-3xl font-bold
             text-indigo-500 mb-6 text-center"
         >
-          {isHome ? "Recent Jobs" : "Browse Jobs"}
+          {isHome ? 'Recent Jobs' : 'Browse Jobs'}
         </h2>
         {loading ? (
           <Spinner loading={loading} />

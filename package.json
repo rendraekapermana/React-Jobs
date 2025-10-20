@@ -8,9 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "json-server --watch src/jobs.json --port 10000"
+    "server": "json-server --watch src/jobs.json --port 8000"
   },
   "dependencies": {
+    "firebase": "^12.4.0",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
