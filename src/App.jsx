@@ -16,6 +16,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import RecruiterRoute from './components/RecruiterRoute';
+import MyApplicationsPage from './pages/MyApplicationsPage';
+import JobApplicantsPage from './pages/JobApplicantsPage';
 
 // Import fungsi-fungsi Firebase
 import { db, auth } from './firebase';
@@ -77,9 +79,10 @@ const App = () => {
             element={<JobPage deleteJob={deleteJob} />}
             loader={jobLoader}
           />
+          <Route path="/my-applications" element={<MyApplicationsPage />} />
         </Route>
 
-        {/* Rute Khusus Recruiter (Harus Login & Role Recruiter) */}
+        {/* Rute Khusus Recruiter */}
         <Route element={<RecruiterRoute />}>
           <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
           <Route
@@ -87,6 +90,8 @@ const App = () => {
             element={<EditJobPage updateJobSubmit={updateJob} />}
             loader={jobLoader}
           />
+          {/* Rute untuk melihat pelamar job tertentu */}
+          <Route path="/jobs/:jobId/applicants" element={<JobApplicantsPage />} />
         </Route>
 
         {/* Rute Not Found */}
